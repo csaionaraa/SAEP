@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style/style.css" media="screen" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="box empty">1</div>
+    <div class="box empty">2</div>
+    <div class="box empty" >3</div>
+    <div class="box occupied" onclick="showCarInformation(this)">4</div>
+    <div class="box empty">5</div>
+    <div class="box empty">6</div>
+    <div class="box occupied" onclick="showCarInformation(this)">7</div>
+    <div class="box occupied" onclick="showCarInformation(this)">8</div>
+    <div class="box empty">9</div>
+    <div class="box empty">10</div>
+
+    <div id="carInformationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Automóveis</h2>
+            <div id="carInformation"></div>
+        </div>
+    </div>
+
+    <script>
+        function showCarInformation(element) {
+            var carInformationModal = document.getElementById("carInformationModal");
+            var carInformationDiv = document.getElementById("carInformation");
+
+            // Verificar se a área está ocupada
+            if (element.classList.contains("occupied")) {
+                // Simular informações dos automóveis
+                var carData = "Informações " + element.textContent;
+
+                // Atualizar o conteúdo do modal com as informações dos automóveis
+                carInformationDiv.textContent = carData;
+
+                // Exibir o modal
+                carInformationModal.style.display = "block";
+                
+            }
+        }
+
+        function closeModal() {
+            var carInformationModal = document.getElementById("carInformationModal");
+            carInformationModal.style.display = "none";
+        }
+        
+    </script>
+</body>
+</html>
