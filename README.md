@@ -10,5 +10,7 @@ API
 ##cd api(depencia back-end)
 BANCO DE DADOS
 ##npm install express(instala o express)
+
 ##npm install mysql2(instala o mysql)
+
 ##node server.js(para executar o back)
