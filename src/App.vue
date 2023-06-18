@@ -84,6 +84,7 @@
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 12px;
 }
 
 .occupied {
