@@ -406,39 +406,48 @@ getPatioQuantityFromDatabase(numero) {
       this.salePrice = '';
     },
     sellCar() {
-      this.closeSellModal();
-      if (this.selectedClient && this.selectedDealer) {
-        Swal.fire(
-          'Vendido',
-          'O veículo foi vendido com sucesso',
-          'success'
-        ).then(() => {
-          const automovelId = this.selectedCar.id;
+  this.closeSellModal();
+  if (this.selectedClient && this.selectedDealer) {
+    Swal.fire(
+      'Vendido',
+      'O veículo foi vendido com sucesso',
+      'success'
+    ).then(() => {
+      const automovelId = this.selectedCar.id;
 
-          fetch(`http://localhost:3000/api/vendas/${automovelId}`, {
-            method: 'PUT'
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log(data);
-              // Atualizar a quantidade do veículo no frontend
-              const carIndex = this.carData.findIndex(car => car.id === automovelId);
-              if (carIndex !== -1) {
-                this.carData[carIndex].quantidade -= 1;
-              }
-            })
-            .catch(error => {
-              console.error("Erro ao atualizar a quantidade do automóvel:", error);
-            });
+      fetch(`http://localhost:3000/api/vendas/${automovelId}`, {
+        method: 'PUT'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          // Atualizar a quantidade do veículo no frontend
+          const carIndex = this.carData.findIndex(car => car.id === automovelId);
+          if (carIndex !== -1) {
+            this.carData[carIndex].quantidade -= 1;
+            if (this.carData[carIndex].quantidade <= 0) {
+              this.carData.splice(carIndex, 1); // Remove o veículo da lista
+            }
+          }
+
+          // Verifica se não há mais veículos para exibir e fecha o modal
+          if (this.carData.length === 0) {
+            this.showModal = false;
+          }
+        })
+        .catch(error => {
+          console.error("Erro ao atualizar a quantidade do automóvel:", error);
         });
-      } else {
-        Swal.fire(
-          'Erro!',
-          'Selecione um cliente e uma concessionária antes de confirmar a venda',
-          'error'
-        );
-      }
-    },
+    });
+  } else {
+    Swal.fire(
+      'Erro!',
+      'Selecione um cliente e uma concessionária antes de confirmar a venda',
+      'error'
+    );
+  }
+},
+
 
 
   },
